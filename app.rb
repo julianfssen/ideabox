@@ -1,3 +1,5 @@
+require './idea'
+
 class IdeaBoxApp < Sinatra::Base
     configure :development do
         register Sinatra::Reloader
@@ -8,7 +10,9 @@ class IdeaBoxApp < Sinatra::Base
     end
 
     post '/' do
-        "An idea"
+        idea = Idea.new(params['idea_title'], params['idea_description'])
+        idea.save
+        "Create an idea"
     end
 
     not_found do
